@@ -6,9 +6,12 @@
 
 package com.TDD;
 
+import com.Confi.AppConfig;
 import com.MyInterface.Encapsulation.Person;
 import com.MyInterface.Inheritance.Player;
 import junit.framework.Assert;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import static org.testng.Assert.*;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.AfterMethod;
@@ -22,6 +25,9 @@ import org.testng.annotations.Test;
  */
 public class TddTestInheritance {
     
+     private static ApplicationContext ctx;
+    private static Person person;
+    
     public TddTestInheritance() {
     }
 
@@ -30,15 +36,18 @@ public class TddTestInheritance {
     //
     @Test
     public void testInheritance()
-    {
-         Person a = new Player();
-         Assert.assertTrue(a instanceof Person);
-         //System.out.println(a instanceof Person);
+    {        
+        person = new Player();
+         Assert.assertTrue(person instanceof Person);
+        
       
     }
 
     @BeforeClass
     public static void setUpClass() throws Exception {
+        ctx = new AnnotationConfigApplicationContext(AppConfig.class);
+        person = (Player)ctx.getBean("InheritanceClass");
+        
         
     }
 
